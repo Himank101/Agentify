@@ -4,74 +4,72 @@ import AgentCard from "./components/AgentCard.jsx";
 import AgentCardCreated from "./components/agentCardCreated.jsx";
 import TaskCardCreated from "./components/taskCardCreated.jsx";
 import TaskCard from "./components/TaskCard.jsx";
-import { Theme } from "@radix-ui/themes";
+import CircuitDiagramEditor from "./pages/editor.jsx";
+import Landing from "./pages/landing.jsx";
+import { useEffect, useState } from "react";
 
 function App() {
+  const [agents, setAgents] = useState([]);
+  const [tasks, setTasks] = useState([]);
+  useEffect(() => {
+    // Fetching the agents data once when the component mounts
+    fetch("http://localhost:3000/tasks", {
+      method: "GET",
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        const taskArray = Object.keys(data).map((a) => ({
+          name: a,
+          ...data[a],
+        }));
+      })
+      .catch((error) => console.error("Error fetching agents:", error));
+    fetch("http://localhost:3000/agents", {
+      method: "GET",
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        const agentsArray = Object.keys(data).map((key) => ({
+          name: key,
+          ...data[key],
+        }));
+        setAgents(agentsArray);
+      })
+      .catch((error) => console.error("Error fetching agents:", error));
+  }, []); // Empty dependency array ensures this runs only once
+
   return (
     <div className="container">
       {/* Left panel for Agent Details */}
-      <div className="left-panel">
-        <AgentCard
-          name="John Doe"
-          task="Researcher Task"
-          role="Senior Data Researcher"
-          background="Experienced researcher in data science."
-          goal="Uncover cutting-edge developments."
-        />
+      <div
+        style={{ display: "flex", flexWrap: "wrap", justifyContent: "center" }}
+      >
+        {agents.map((agent) => {
+          return (
+            <AgentCardCreated
+              name={agent.name}
+              role={agent.role}
+              goal={agent.goal}
+              backstory={agent.backstory}
+            />
+          );
+        })}
+      </div>
+      <div
+        style={{ display: "flex", flexWrap: "wrap", justifyContent: "center" }}
+      >
+        {agents.map((task) => {
+          return (
+            <TaskCardCreated
+              name={task.name}
+              description={task.description}
+              expectedOutput={task.expected_output}
+            />
+          );
+        })}
       </div>
 
-      {/* Right panel for Tools, Agents, and Tasks */}
-      <div className="right-panel">
-        <div className="tools-section">
-          <h2>Tools</h2>
-          <div className="tool-card">Webscraper</div>
-          <div className="tool-card">Directory</div>
-        </div>
-        <div className="agents-section">
-          <h2>Agents</h2>
-          <div className="agent-card">Agent Name</div>
-        </div>
-        <div className="tasks-section">
-          <h2>Tasks</h2>
-          <TaskCard
-            taskName="Task 1"
-            description="Analyze data trends"
-            agentAssigned="John Doe"
-            expectedOutput="Explain in 5 points"
-          />
-        </div>
-      </div>
-      <div className="left-panel">
-        <AgentCardCreated
-          name="John Doe"
-          task="Researcher Task"
-          role="Senior Data Researcher"
-          background="Experienced researcher in data science."
-          goal="Uncover cutting-edge developments."
-        />
-      </div>
-
-      {/* Right panel for Tools, Agents, and Tasks */}
-      <div className="right-panel">
-        <div className="tools-section">
-          <h2>Tools</h2>
-          <div className="tool-card">Webscraper</div>
-          <div className="tool-card">Directory</div>
-        </div>
-        <div className="agents-section">
-          <h2>Agents</h2>
-          <div className="agent-card">Agent Name</div>
-        </div>
-        <div className="tasks-section">
-          <h2>Tasks</h2>
-          <TaskCardCreated
-            taskName="Task 1"
-            description="Analyze data trends"
-            agentAssigned="John Doe"
-            expectedOutput="Explain in 5 points"
-          />
-        </div>
-      </div>
+      <Landing />
     </div>
   );
 }

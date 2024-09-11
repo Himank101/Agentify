@@ -1,7 +1,10 @@
 const fs = require("fs");
 const yaml = require("js-yaml");
 const express = require("express");
+const cors = require("cors");
+
 const app = express();
+app.use(cors());
 const port = 3000;
 // Load and parse YAML file
 

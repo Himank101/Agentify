@@ -18,7 +18,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 
-function AgentCard({ name, task, role, background, goal }) {
+function AgentCard({ name, task, role, backstory, goal }) {
   return (
     <Card className="w-[350px]">
       <CardHeader>
@@ -37,8 +37,8 @@ function AgentCard({ name, task, role, background, goal }) {
               <Input id="role" placeholder="Role of your agent" />
             </div>
             <div className="flex flex-col space-y-1.5">
-              <Label htmlFor="background">Background</Label>
-              <Input id="background" placeholder="Background of your agent" />
+              <Label htmlFor="backstory">Backstory</Label>
+              <Input id="backstory" placeholder="backstory of your agent" />
             </div>
             <div className="flex flex-col space-y-1.5">
               <Label htmlFor="goal">Goal</Label>
@@ -49,7 +49,7 @@ function AgentCard({ name, task, role, background, goal }) {
       </CardContent>
       <CardFooter className="flex justify-between">
         <Button variant="outline">Cancel</Button>
-        <Button>Deploy</Button>
+        <Button>Add</Button>
       </CardFooter>
     </Card>
   );

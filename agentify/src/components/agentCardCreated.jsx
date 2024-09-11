@@ -36,63 +36,47 @@ const ScratchInput = ({ label, value }) => (
 // making input displayed like scratch blocks
 // <ScratchInput label="Name:" value={name} />
 
-function AgentCardCreated({ name, task, role, background, goal }) {
+function AgentCardCreated({ name, task, role, backstory, goal }) {
   return (
     <Card className="w-[350px]">
       <CardHeader>
         <CardTitle>Agent</CardTitle>
       </CardHeader>
       <CardContent>
-        <form>
-          <div className="grid w-full items-center gap-4">
-            <div className="flex flex-col space-y-1.5">
-              <Label htmlFor="name" className="flex flex-col space-y-1">
-                <span>Name</span>
-                <span className="text-xs font-normal leading-snug text-muted-foreground">
-                  {name}
-                </span>
-              </Label>
-            </div>
-            <div className="flex flex-col space-y-1.5">
-              <Label htmlFor="role" className="flex flex-col space-y-1">
-                <span>Role</span>
-                <span className="text-xs font-normal leading-snug text-muted-foreground">
-                  {role}
-                </span>
-              </Label>
-            </div>
-            <div className="flex flex-col space-y-1.5">
-              <Label htmlFor="background" className="flex flex-col space-y-1">
-                <span>Background</span>
-                <span className="text-xs font-normal leading-snug text-muted-foreground">
-                  {background}
-                </span>
-              </Label>
-            </div>
-            <div className="flex flex-col space-y-1.5">
-              <Label htmlFor="goal" className="flex flex-col space-y-1">
-                <span>Goal</span>
-                <span className="text-xs font-normal leading-snug text-muted-foreground">
-                  {goal}
-                </span>
-              </Label>
-            </div>
-            <div className="flex flex-col space-y-1.5">
-              <Label htmlFor="task">Task</Label>
-              <Select>
-                <SelectTrigger id="task">
-                  <SelectValue placeholder="Task" />
-                </SelectTrigger>
-                <SelectContent position="popper">
-                  <SelectItem value="next">Next.js</SelectItem>
-                  <SelectItem value="sveltekit">SvelteKit</SelectItem>
-                  <SelectItem value="astro">Astro</SelectItem>
-                  <SelectItem value="nuxt">Nuxt.js</SelectItem>
-                </SelectContent>
-              </Select>
-            </div>
+        <div className="grid w-full items-center gap-4">
+          <div className="flex flex-col space-y-1.5">
+            <Label htmlFor="name" className="flex flex-col space-y-1">
+              <span>Name</span>
+              <span className="text-xs font-normal leading-snug text-muted-foreground">
+                {name}
+              </span>
+            </Label>
           </div>
-        </form>
+          <div className="flex flex-col space-y-1.5">
+            <Label htmlFor="role" className="flex flex-col space-y-1">
+              <span>Role</span>
+              <span className="text-xs font-normal leading-snug text-muted-foreground">
+                {role}
+              </span>
+            </Label>
+          </div>
+          <div className="flex flex-col space-y-1.5">
+            <Label htmlFor="backstory" className="flex flex-col space-y-1">
+              <span>Backstory</span>
+              <span className="text-xs font-normal leading-snug text-muted-foreground">
+                {backstory}
+              </span>
+            </Label>
+          </div>
+          <div className="flex flex-col space-y-1.5">
+            <Label htmlFor="goal" className="flex flex-col space-y-1">
+              <span>Goal</span>
+              <span className="text-xs font-normal leading-snug text-muted-foreground">
+                {goal}
+              </span>
+            </Label>
+          </div>
+        </div>
       </CardContent>
       <CardFooter className="flex justify-between">
         <Button variant="outline">Edit</Button>
