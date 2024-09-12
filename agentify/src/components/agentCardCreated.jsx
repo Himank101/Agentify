@@ -80,7 +80,26 @@ function AgentCardCreated({ name, task, role, backstory, goal }) {
       </CardContent>
       <CardFooter className="flex justify-between">
         <Button variant="outline">Edit</Button>
-        <Button variant="destructive">Delete</Button>
+        <Button
+          variant="destructive"
+          onClick={() => {
+            fetch(`http://localhost:3000/agents/${name}`, {
+              method: "DELETE",
+              headers: {
+                "Content-Type": "application/json",
+              },
+            })
+              .then((response) => response.json())
+              .then((data) => {
+                console.log("Success:", data);
+              })
+              .catch((error) => {
+                console.error("Error:", error);
+              });
+          }}
+        >
+          Delete
+        </Button>
       </CardFooter>
     </Card>
   );
