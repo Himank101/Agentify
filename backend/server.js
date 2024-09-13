@@ -2,9 +2,9 @@ const fs = require("fs");
 const yaml = require("js-yaml");
 const express = require("express");
 const cors = require("cors");
-
 const app = express();
 app.use(cors());
+app.use(express.json());
 const port = 3000;
 // Load and parse YAML file
 
@@ -124,6 +124,7 @@ app.get("/agents", (req, res) => {
 
 app.post("/agents", (req, res) => {
   const { agent_name, desc } = req.body;
+  console.log(req.body);
   // AGENTS.push(agent_name);
   agent_json[agent_name] = desc;
   writefileContent(agent_path, agent_json);

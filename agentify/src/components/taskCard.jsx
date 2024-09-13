@@ -20,11 +20,11 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 
-function TaskCard() {
+function TaskCard({ availableAgents = [] }) {
   const [taskName, setTaskName] = useState("");
   const [taskDesc, setTaskDesc] = useState("");
   const [taskOutput, setTaskOutput] = useState("");
-  const [taskAssignedAgent, setTaskAssignedAgente] = useState("");
+  const [taskAssignedAgent, setTaskAssignedAgent] = useState("");
   return (
     <Card className="w-[350px]">
       <CardHeader>
@@ -63,6 +63,27 @@ function TaskCard() {
                   }}
                 />
               </div>
+              <div className="flex flex-col space-y-1.5">
+                <Label htmlFor="assignedAgent">Assigned Agent</Label>
+                <Select
+                  onValueChange={(e) => {
+                    setTaskAssignedAgent(e);
+                  }}
+                >
+                  <SelectTrigger id="agent">
+                    <SelectValue placeholder="Agent" />
+                  </SelectTrigger>
+                  <SelectContent position="popper">
+                    {availableAgents.map((agent, index) => {
+                      return (
+                        <SelectItem key={index} value={agent.name}>
+                          {agent.name}
+                        </SelectItem>
+                      );
+                    })}
+                  </SelectContent>
+                </Select>
+              </div>
             </div>
           </div>
         </form>
@@ -77,11 +98,11 @@ function TaskCard() {
                 "Content-Type": "application/json",
               },
               body: JSON.stringify({
-                task_name: agentName,
+                task_name: taskName,
                 desc: {
-                  description: agentRole,
-                  expected_output: agentGoal,
-                  // agent: agentBackstory,
+                  description: taskDesc,
+                  expected_output: taskOutput,
+                  agent: taskAssignedAgent,
                 },
               }),
             })

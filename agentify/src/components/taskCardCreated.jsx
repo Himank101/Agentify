@@ -75,25 +75,41 @@ function TaskCardCreated({
               </Label>
             </div>
             <div className="flex flex-col space-y-1.5">
-              <Label htmlFor="assignedAgent">Assigned Agent</Label>
-              <Select>
-                <SelectTrigger id="agent">
-                  <SelectValue placeholder="Agent" />
-                </SelectTrigger>
-                <SelectContent position="popper">
-                  <SelectItem value="next">Next.js</SelectItem>
-                  <SelectItem value="sveltekit">SvelteKit</SelectItem>
-                  <SelectItem value="astro">Astro</SelectItem>
-                  <SelectItem value="nuxt">Nuxt.js</SelectItem>
-                </SelectContent>
-              </Select>
+              <Label
+                htmlFor="assignedAgent"
+                className="flex flex-col space-y-1"
+              >
+                <span>Agent Assigned</span>
+                <span className="text-xs font-normal leading-snug text-muted-foreground">
+                  {agentAssigned}
+                </span>
+              </Label>
             </div>
           </div>
         </form>
       </CardContent>
       <CardFooter className="flex justify-between">
         <Button variant="outline">Edit</Button>
-        <Button variant="destructive">Delete</Button>
+        <Button
+          variant="destructive"
+          onClick={() => {
+            fetch(`http://localhost:3000/tasks/${taskName}`, {
+              method: "DELETE",
+              headers: {
+                "Content-Type": "application/json",
+              },
+            })
+              .then((response) => response.json())
+              .then((data) => {
+                console.log("Success:", data);
+              })
+              .catch((error) => {
+                console.error("Error:", error);
+              });
+          }}
+        >
+          Delete
+        </Button>
       </CardFooter>
     </Card>
   );
